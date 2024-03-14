@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<!-- thymeleaf th 네임스페이스 선언(생략가능) -->
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>index</title>
+    <!--
+        날짜 : 2024/03/11
+        이름 : 조영흥
+        내용 : ch06.스프링부트 실습하기
+    -->
+</head>
+<body>
+    <h3>ch06.스프링부트</h3>
+
+    <h4>스프링부트 기본</h4>
+    <a href="/ch06/sub1/hello">hello</a>
+    <a href="/ch06/sub1/welcome">welcome</a>
+    <a href="/ch06/sub1/greeting">greeting</a>
+
+    <h4>타임리프 출력</h4>
+    <p>[[${str1}]]</p>
+    <p th:text="${str2}">내용</p>
+
+    <h4>타임리프 조건문</h4>
+    <p>
+        <span th:if="${user1.name=='홍길동'}">user1은 홍길동 입니다.</span>
+        <span th:if="${user1.name=='김유신'}">user1은 김유신 입니다.</span>
+    </p>
+    <p>
+        <span th:if="${user1.age > 20}">user1은 20세 이상 입니다.</span>
+        <span th:unless="${user1.age > 20}">user1은 20세 미만 입니다.</span>
+    </p>
+    <p th:switch="${user2.age > 20}">
+        <span th:case="true">user2는 20세 이상 입니다.</span>
+        <span th:case="false">user2는 20세 미만 입니다.</span>
+    </p>
+    <p>
+        <span th:if="${user4}">user4는 참 입니다.</span>
+        <span th:unless="${user4}">user4는 거짓 입니다.</span>
+    </p>
+
+    <h4>타임리프 반복문</h4>
+    <table border="1">
+        <tr th:each="user:${users}">
+            <td>[[${user.uid}]]</td>
+            <td>[[${user.name}]]</td>
+            <td>[[${user.birth}]]</td>
+            <td>[[${user.hp}]]</td>
+            <td th:text="${user.age}">나이</td>
+        </tr>
+    </table>
+
+
+    <h4>타임리프 링크</h4>
+    <a th:href="@{/sub1/hello}">hello</a>
+    <a th:href="@{/sub1/welcome}">welcome</a>
+    <a th:href="@{/sub1/greeting}">greeting</a>
+
+    <h4>타임리프 include</h4>
+    <th:block th:include="/include/_header.html"/>
+    <th:block th:include="/include/_footer.html"/>
+
+    <div th:insert="/include/_header.html"></div>
+    <div th:insert="/include/_footer.html"></div>
+
+    <div th:replace="/include/_header.html"></div>
+    <div th:replace="/include/_footer.html"></div>
+
+    <th:block th:include="~{include/template::_header}"/>
+    <th:block th:include="~{include/template::_footer}"/>
+
+    <h4>타임리프 layout</h4>
+    <a th:href="@{/sub2/content1}">layout1</a>
+    <a th:href="@{/sub2/content2}">layout2</a>
+
+    <h4>스프링부트 타임리프 실습</h4>
+    <a th:href="@{/user1/list}">user1 목록</a>
+    <a th:href="@{/user2/list}">user2 목록</a>
+    <a th:href="@{/user3/list}">user3 목록</a>
+    <a th:href="@{/user4/list}">user4 목록</a>
+    <a th:href="@{/user5/list}">user5 목록</a>
+
+</body>
+</html>

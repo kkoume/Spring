@@ -1,0 +1,72 @@
+<html>
+<head>
+    <title>user2::list</title>
+    <script>
+        window.onload = function (){
+            const table = document.getElementsByTagName('table')[0];
+
+            fetch("/ch09/user2")
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    for(const user of data){
+                        const tr = `<tr>
+                                        <td>${user.uid}</td>
+                                        <td>${user.name}</td>
+                                        <td>${user.birth}</td>
+                                        <td>${user.addr}</td>
+                                        <td>
+                                            <a href="#" class="modify" data-uid="${user.uid}">수정</a>
+                                            <a href="#" class="delete" data-uid="${user.uid}">삭제</a>
+                                        </td>
+                                    </tr>`;
+                        table.insertAdjacentHTML('beforeend', tr);
+                    }
+                })
+                .catch((err)=>{
+                    console.log(err);
+                })
+
+            document.addEventListener('click', function (e){
+                if(e.target.classList == 'modify'){
+                    const uid = e.target.dataset.uid;
+                    location.href = `/ch09/user2/modify?uid=${uid}`;
+
+                }else if(e.target.classList == 'delete'){
+                    const tr = e.target.closest('tr');
+                    const uid = e.target.dataset.uid;
+
+                    fetch(`/ch09/user2/${uid}`, {
+                        method: 'DELETE'
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            if(data != null){
+                                alert(data.uid + '를 삭제 했습니다.');
+                                tr.remove();
+                            }
+                        })
+                        .catch(err => {
+                            console.log(err);
+                        });
+                }
+            })
+        }
+    </script>
+</head>
+<body>
+    <h3>user2 목록</h3>
+    <a th:href="@{/}">메인</a>
+    <a th:href="@{/user2/register}">등록</a>
+    <table border="1">
+        <tr>
+            <th>아이디</th>
+            <th>이름</th>
+            <th>생년월일</th>
+            <th>주소</th>
+            <th>관리</th>
+        </tr>
+
+    </table>
+</body>
+</html>

@@ -1,0 +1,113 @@
+2024-03-13T17:13:08.293+09:00  INFO 2448 --- [ch07] [main] k.c.c.r.shop.ShopRepositoryTest          : Starting ShopRepositoryTest using Java 17.0.9 with PID 2448 (started by java in C:\Users\java\Desktop\workspace\Spring\ch07)
+2024-03-13T17:13:08.296+09:00  INFO 2448 --- [ch07] [main] k.c.c.r.shop.ShopRepositoryTest          : No active profile set, falling back to 1 default profile: "default"
+2024-03-13T17:13:08.697+09:00  INFO 2448 --- [ch07] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-03-13T17:13:08.758+09:00  INFO 2448 --- [ch07] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 54 ms. Found 10 JPA repository interfaces.
+2024-03-13T17:13:09.086+09:00  INFO 2448 --- [ch07] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-03-13T17:13:09.140+09:00  INFO 2448 --- [ch07] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.4.4.Final
+2024-03-13T17:13:09.168+09:00  INFO 2448 --- [ch07] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-03-13T17:13:09.359+09:00  INFO 2448 --- [ch07] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-03-13T17:13:09.378+09:00  INFO 2448 --- [ch07] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-03-13T17:13:09.604+09:00  INFO 2448 --- [ch07] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@50ff7063
+2024-03-13T17:13:09.606+09:00  INFO 2448 --- [ch07] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-03-13T17:13:09.638+09:00  WARN 2448 --- [ch07] [main] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-03-13T17:13:10.330+09:00  INFO 2448 --- [ch07] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-03-13T17:13:10.402+09:00  INFO 2448 --- [ch07] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-03-13T17:13:10.666+09:00  INFO 2448 --- [ch07] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-03-13T17:13:11.062+09:00  WARN 2448 --- [ch07] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-03-13T17:13:11.080+09:00  INFO 2448 --- [ch07] [main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2024-03-13T17:13:11.472+09:00  INFO 2448 --- [ch07] [main] k.c.c.r.shop.ShopRepositoryTest          : Started ShopRepositoryTest in 3.345 seconds (process running for 4.002)
+2024-03-13T17:13:11.858+09:00  INFO 2448 --- [ch07] [main] k.c.c.r.shop.ShopRepositoryTest          : Order(orderId=3, customer=Customer(custId=a103, name=장보고, age=31, hp=010-1234-1003, addr=대구, regDate=2024-03-12T17:08:18), orderStatus=1, orderPrice=800000, orderDate=2024-03-12T17:08:18, orderItems=[OrderItem(orderItemId=3, product=Product(productId=4, productName=휴대폰, price=800000, stock=100), count=1), OrderItem(orderItemId=5, product=Product(productId=1, productName=키보드, price=35000, stock=100), count=1)])
+2024-03-13T17:13:11.908+09:00  INFO 2448 --- [ch07] [main] k.c.c.r.shop.ShopRepositoryTest          : Order(orderId=1, customer=Customer(custId=a101, name=김유신, age=23, hp=010-1234-1001, addr=서울, regDate=2024-03-12T17:08:18), orderStatus=1, orderPrice=15000, orderDate=2024-03-12T17:08:18, orderItems=[OrderItem(orderItemId=1, product=Product(productId=2, productName=마우스, price=15000, stock=100), count=3)])
+2024-03-13T17:13:11.909+09:00  INFO 2448 --- [ch07] [main] k.c.c.r.shop.ShopRepositoryTest          : Order(orderId=2, customer=Customer(custId=a102, name=김춘추, age=21, hp=010-1234-1002, addr=대전, regDate=2024-03-12T17:08:18), orderStatus=1, orderPrice=35000, orderDate=2024-03-12T17:08:18, orderItems=[OrderItem(orderItemId=2, product=Product(productId=1, productName=키보드, price=35000, stock=100), count=2)])
+2024-03-13T17:13:11.913+09:00  INFO 2448 --- [ch07] [main] k.c.c.r.shop.ShopRepositoryTest          : Order(orderId=3, customer=Customer(custId=a103, name=장보고, age=31, hp=010-1234-1003, addr=대구, regDate=2024-03-12T17:08:18), orderStatus=1, orderPrice=800000, orderDate=2024-03-12T17:08:18, orderItems=[OrderItem(orderItemId=3, product=Product(productId=4, productName=휴대폰, price=800000, stock=100), count=1), OrderItem(orderItemId=5, product=Product(productId=1, productName=키보드, price=35000, stock=100), count=1)])
+2024-03-13T17:13:11.914+09:00  INFO 2448 --- [ch07] [main] k.c.c.r.shop.ShopRepositoryTest          : Order(orderId=4, customer=Customer(custId=a105, name=이순신, age=51, hp=010-1234-1005, addr=광주, regDate=2024-03-12T17:08:18), orderStatus=1, orderPrice=235000, orderDate=2024-03-12T17:08:18, orderItems=[OrderItem(orderItemId=4, product=Product(productId=5, productName=모니터, price=235000, stock=100), count=1)])
+2024-03-13T17:13:11.915+09:00  INFO 2448 --- [ch07] [main] k.c.c.r.shop.ShopRepositoryTest          : Order(orderId=5, customer=Customer(custId=a102, name=김춘추, age=21, hp=010-1234-1002, addr=대전, regDate=2024-03-12T17:08:18), orderStatus=1, orderPrice=35000, orderDate=2024-03-12T17:08:18, orderItems=[OrderItem(orderItemId=6, product=Product(productId=2, productName=마우스, price=15000, stock=100), count=2)])
+2024-03-13T17:13:11.921+09:00  INFO 2448 --- [ch07] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-03-13T17:13:11.924+09:00  INFO 2448 --- [ch07] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-03-13T17:13:11.933+09:00  INFO 2448 --- [ch07] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-03-13T17:14:47.191+09:00  INFO 15736 --- [ch07] [main] k.c.ch07.repository.User2RepositoryTest  : Starting User2RepositoryTest using Java 17.0.9 with PID 15736 (started by java in C:\Users\java\Desktop\workspace\Spring\ch07)
+2024-03-13T17:14:47.192+09:00  INFO 15736 --- [ch07] [main] k.c.ch07.repository.User2RepositoryTest  : No active profile set, falling back to 1 default profile: "default"
+2024-03-13T17:14:47.541+09:00  INFO 15736 --- [ch07] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-03-13T17:14:47.607+09:00  INFO 15736 --- [ch07] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 58 ms. Found 10 JPA repository interfaces.
+2024-03-13T17:14:47.915+09:00  INFO 15736 --- [ch07] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-03-13T17:14:47.957+09:00  INFO 15736 --- [ch07] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.4.4.Final
+2024-03-13T17:14:47.985+09:00  INFO 15736 --- [ch07] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-03-13T17:14:48.174+09:00  INFO 15736 --- [ch07] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-03-13T17:14:48.194+09:00  INFO 15736 --- [ch07] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-03-13T17:14:48.367+09:00  INFO 15736 --- [ch07] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@5eeee124
+2024-03-13T17:14:48.368+09:00  INFO 15736 --- [ch07] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-03-13T17:14:48.401+09:00  WARN 15736 --- [ch07] [main] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-03-13T17:14:49.032+09:00  INFO 15736 --- [ch07] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-03-13T17:14:49.101+09:00  INFO 15736 --- [ch07] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-03-13T17:14:49.353+09:00  INFO 15736 --- [ch07] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-03-13T17:14:49.719+09:00  WARN 15736 --- [ch07] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-03-13T17:14:49.734+09:00  INFO 15736 --- [ch07] [main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2024-03-13T17:14:50.083+09:00  INFO 15736 --- [ch07] [main] k.c.ch07.repository.User2RepositoryTest  : Started User2RepositoryTest in 3.072 seconds (process running for 3.636)
+2024-03-13T17:14:50.456+09:00  INFO 15736 --- [ch07] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-03-13T17:14:50.457+09:00  INFO 15736 --- [ch07] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-03-13T17:14:50.462+09:00  INFO 15736 --- [ch07] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-03-13T17:20:05.315+09:00  INFO 15532 --- [ch07] [main] k.c.ch07.repository.User2RepositoryTest  : Starting User2RepositoryTest using Java 17.0.9 with PID 15532 (started by java in C:\Users\java\Desktop\workspace\Spring\ch07)
+2024-03-13T17:20:05.316+09:00  INFO 15532 --- [ch07] [main] k.c.ch07.repository.User2RepositoryTest  : No active profile set, falling back to 1 default profile: "default"
+2024-03-13T17:20:05.697+09:00  INFO 15532 --- [ch07] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-03-13T17:20:05.758+09:00  INFO 15532 --- [ch07] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 55 ms. Found 10 JPA repository interfaces.
+2024-03-13T17:20:06.042+09:00  INFO 15532 --- [ch07] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-03-13T17:20:06.076+09:00  INFO 15532 --- [ch07] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.4.4.Final
+2024-03-13T17:20:06.101+09:00  INFO 15532 --- [ch07] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-03-13T17:20:06.273+09:00  INFO 15532 --- [ch07] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-03-13T17:20:06.289+09:00  INFO 15532 --- [ch07] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-03-13T17:20:06.468+09:00  INFO 15532 --- [ch07] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@2a7ebe07
+2024-03-13T17:20:06.469+09:00  INFO 15532 --- [ch07] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-03-13T17:20:06.499+09:00  WARN 15532 --- [ch07] [main] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-03-13T17:20:07.126+09:00  INFO 15532 --- [ch07] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-03-13T17:20:07.195+09:00  INFO 15532 --- [ch07] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-03-13T17:20:07.457+09:00  INFO 15532 --- [ch07] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-03-13T17:20:07.829+09:00  WARN 15532 --- [ch07] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-03-13T17:20:07.845+09:00  INFO 15532 --- [ch07] [main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2024-03-13T17:20:08.183+09:00  INFO 15532 --- [ch07] [main] k.c.ch07.repository.User2RepositoryTest  : Started User2RepositoryTest in 3.057 seconds (process running for 3.624)
+2024-03-13T17:20:08.559+09:00  WARN 15532 --- [ch07] [main] k.c.ch07.repository.User2RepositoryTest  : [User2(uid=a103, name=유관순, birth=2024-03-05, addr=서울시 경기도), User2(uid=a104, name=금강선, birth=2024-02-27, addr=서울시 판교동), User2(uid=a105, name=전지현, birth=2024-03-05, addr=서울시 경기도)]
+2024-03-13T17:20:08.571+09:00  WARN 15532 --- [ch07] [main] k.c.ch07.repository.User2RepositoryTest  : [User2(uid=a102, name=원빈, birth=2024-02-26, addr=부산시 동래구)]
+2024-03-13T17:20:08.576+09:00  WARN 15532 --- [ch07] [main] k.c.ch07.repository.User2RepositoryTest  : [User2(uid=a102, name=원빈, birth=2024-02-26, addr=부산시 동래구)]
+2024-03-13T17:20:08.580+09:00  WARN 15532 --- [ch07] [main] k.c.ch07.repository.User2RepositoryTest  : [User2(uid=a101, name=김유신, birth=2024-03-05, addr=부산시 금정구), User2(uid=a103, name=유관순, birth=2024-03-05, addr=서울시 경기도), User2(uid=a104, name=금강선, birth=2024-02-27, addr=서울시 판교동), User2(uid=a105, name=전지현, birth=2024-03-05, addr=서울시 경기도)]
+2024-03-13T17:20:08.585+09:00  WARN 15532 --- [ch07] [main] k.c.ch07.repository.User2RepositoryTest  : User2(uid=a102, name=원빈, birth=2024-02-26, addr=부산시 동래구)
+2024-03-13T17:20:08.591+09:00  WARN 15532 --- [ch07] [main] k.c.ch07.repository.User2RepositoryTest  : User2(uid=a102, name=원빈, birth=2024-02-26, addr=부산시 동래구)
+2024-03-13T17:20:08.597+09:00  INFO 15532 --- [ch07] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-03-13T17:20:08.598+09:00  INFO 15532 --- [ch07] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-03-13T17:20:08.604+09:00  INFO 15532 --- [ch07] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-03-13T17:27:22.164+09:00  INFO 4940 --- [ch07] [main] k.c.ch07.repository.User2RepositoryTest  : Starting User2RepositoryTest using Java 17.0.9 with PID 4940 (started by java in C:\Users\java\Desktop\workspace\Spring\ch07)
+2024-03-13T17:27:22.165+09:00  INFO 4940 --- [ch07] [main] k.c.ch07.repository.User2RepositoryTest  : No active profile set, falling back to 1 default profile: "default"
+2024-03-13T17:27:22.540+09:00  INFO 4940 --- [ch07] [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-03-13T17:27:22.601+09:00  INFO 4940 --- [ch07] [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 55 ms. Found 10 JPA repository interfaces.
+2024-03-13T17:27:22.905+09:00  INFO 4940 --- [ch07] [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-03-13T17:27:22.946+09:00  INFO 4940 --- [ch07] [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.4.4.Final
+2024-03-13T17:27:22.973+09:00  INFO 4940 --- [ch07] [main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2024-03-13T17:27:23.139+09:00  INFO 4940 --- [ch07] [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-03-13T17:27:23.156+09:00  INFO 4940 --- [ch07] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-03-13T17:27:23.335+09:00  INFO 4940 --- [ch07] [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@50ff7063
+2024-03-13T17:27:23.337+09:00  INFO 4940 --- [ch07] [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-03-13T17:27:23.367+09:00  WARN 4940 --- [ch07] [main] org.hibernate.orm.deprecation            : HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2024-03-13T17:27:23.993+09:00  INFO 4940 --- [ch07] [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-03-13T17:27:24.061+09:00  INFO 4940 --- [ch07] [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-03-13T17:27:24.388+09:00  INFO 4940 --- [ch07] [main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-03-13T17:27:24.778+09:00  WARN 4940 --- [ch07] [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-03-13T17:27:24.795+09:00  INFO 4940 --- [ch07] [main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2024-03-13T17:27:25.172+09:00  INFO 4940 --- [ch07] [main] k.c.ch07.repository.User2RepositoryTest  : Started User2RepositoryTest in 3.182 seconds (process running for 3.741)
+2024-03-13T17:27:25.538+09:00  WARN 4940 --- [ch07] [main] k.c.ch07.repository.User2RepositoryTest  : [User2(uid=a101, name=김유신, birth=2024-03-05, addr=부산시 금정구)]
+2024-03-13T17:27:25.554+09:00  WARN 4940 --- [ch07] [main] k.c.ch07.repository.User2RepositoryTest  : [User2(uid=a102, name=원빈, birth=2024-02-26, addr=부산시 동래구)]
+2024-03-13T17:27:25.559+09:00  WARN 4940 --- [ch07] [main] k.c.ch07.repository.User2RepositoryTest  : [User2(uid=a101, name=김유신, birth=2024-03-05, addr=부산시 금정구), User2(uid=a102, name=원빈, birth=2024-02-26, addr=부산시 동래구), User2(uid=a103, name=유관순, birth=2024-03-05, addr=서울시 경기도), User2(uid=a105, name=전지현, birth=2024-03-05, addr=서울시 경기도), User2(uid=a104, name=금강선, birth=2024-02-27, addr=서울시 판교동)]
+2024-03-13T17:27:25.563+09:00  WARN 4940 --- [ch07] [main] k.c.ch07.repository.User2RepositoryTest  : [User2(uid=a102, name=원빈, birth=2024-02-26, addr=부산시 동래구)]
+2024-03-13T17:27:25.571+09:00  WARN 4940 --- [ch07] [main] k.c.ch07.repository.User2RepositoryTest  : [User2(uid=a104, name=금강선, birth=2024-02-27, addr=서울시 판교동)]
+2024-03-13T17:27:25.576+09:00  WARN 4940 --- [ch07] [main] k.c.ch07.repository.User2RepositoryTest  : [User2(uid=a104, name=금강선, birth=2024-02-27, addr=서울시 판교동)]
+2024-03-13T17:27:25.580+09:00  WARN 4940 --- [ch07] [main] k.c.ch07.repository.User2RepositoryTest  : [User2(uid=a101, name=김유신, birth=2024-03-05, addr=부산시 금정구), User2(uid=a103, name=유관순, birth=2024-03-05, addr=서울시 경기도), User2(uid=a104, name=금강선, birth=2024-02-27, addr=서울시 판교동), User2(uid=a105, name=전지현, birth=2024-03-05, addr=서울시 경기도)]
+2024-03-13T17:27:25.583+09:00  WARN 4940 --- [ch07] [main] k.c.ch07.repository.User2RepositoryTest  : [User2(uid=a102, name=원빈, birth=2024-02-26, addr=부산시 동래구)]
+2024-03-13T17:27:25.589+09:00  WARN 4940 --- [ch07] [main] k.c.ch07.repository.User2RepositoryTest  : User2(uid=a102, name=원빈, birth=2024-02-26, addr=부산시 동래구)
+2024-03-13T17:27:25.593+09:00  WARN 4940 --- [ch07] [main] k.c.ch07.repository.User2RepositoryTest  : [User2(uid=a104, name=금강선, birth=2024-02-27, addr=서울시 판교동), User2(uid=a103, name=유관순, birth=2024-03-05, addr=서울시 경기도), User2(uid=a105, name=전지현, birth=2024-03-05, addr=서울시 경기도), User2(uid=a102, name=원빈, birth=2024-02-26, addr=부산시 동래구), User2(uid=a101, name=김유신, birth=2024-03-05, addr=부산시 금정구)]
+2024-03-13T17:27:25.597+09:00  WARN 4940 --- [ch07] [main] k.c.ch07.repository.User2RepositoryTest  : User2(uid=a102, name=원빈, birth=2024-02-26, addr=부산시 동래구)
+2024-03-13T17:27:25.602+09:00  WARN 4940 --- [ch07] [main] k.c.ch07.repository.User2RepositoryTest  : [User2(uid=a104, name=금강선, birth=2024-02-27, addr=서울시 판교동)]
+2024-03-13T17:27:25.606+09:00  WARN 4940 --- [ch07] [main] k.c.ch07.repository.User2RepositoryTest  : [User2(uid=a104, name=금강선, birth=2024-02-27, addr=서울시 판교동)]
+2024-03-13T17:27:25.613+09:00  WARN 4940 --- [ch07] [main] k.c.ch07.repository.User2RepositoryTest  : countUser2ByUid : 1
+2024-03-13T17:27:25.618+09:00  WARN 4940 --- [ch07] [main] k.c.ch07.repository.User2RepositoryTest  : countUser2ByName : 1
+2024-03-13T17:27:25.624+09:00  WARN 4940 --- [ch07] [main] k.c.ch07.repository.User2RepositoryTest  : [User2(uid=a102, name=원빈, birth=2024-02-26, addr=부산시 동래구)]
+2024-03-13T17:27:25.628+09:00  WARN 4940 --- [ch07] [main] k.c.ch07.repository.User2RepositoryTest  : [[Ljava.lang.Object;@63604641]
+2024-03-13T17:27:25.633+09:00  INFO 4940 --- [ch07] [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-03-13T17:27:25.635+09:00  INFO 4940 --- [ch07] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-03-13T17:27:25.639+09:00  INFO 4940 --- [ch07] [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
