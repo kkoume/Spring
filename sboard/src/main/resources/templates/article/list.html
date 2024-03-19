@@ -1,0 +1,58 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/layout/defaultLayout.html">
+
+    <div class="container-fluid px-4" layout:fragment="content">
+        <h1 class="mt-4">게시판 목록</h1>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item active">OOO 게시판 글목록</li>
+        </ol>
+
+        <!-- 내용 시작 -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-table me-1"></i>
+                000 글목록
+            </div>
+            <div class="card-body">
+                <table id="datatablesSimple">
+                    <thead>
+                        <tr>
+                            <th>번호</th>
+                            <th>제목</th>
+                            <th>작성자</th>
+                            <th>조회수</th>
+                            <th>등록일</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>
+                                <a th:href="@{#}">제목입니다.</a>
+                            </td>
+                            <td>길동123</td>
+                            <td>12</td>
+                            <td>2011/04/25</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>
+                                <a th:href="@{#}">제목입니다.</a>
+                            </td>
+                            <td>길동123</td>
+                            <td>12</td>
+                            <td>2011/04/25</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="text-end">
+            <a th:href="@{/article/write(cate=${cate})}" class="btn btn-primary">글쓰기</a>
+        </div>
+        <!-- 내용 끝 -->
+    </div>
+</html>

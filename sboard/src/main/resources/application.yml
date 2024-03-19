@@ -1,6 +1,6 @@
 logging:
   file:
-    name: log/sboard.log
+    name: logs/sboard.log
   level:
     jdbc:
       connection: info
@@ -8,15 +8,19 @@ logging:
       sqlonly: info
       sqltiming: info
     root: info
+
 mybatis:
   mapper-locations: classpath:mappers/**/*.xml
+
 server:
   port: 8080
   servlet:
     context-path: /sboard
+
 spring:
   application:
     name: sboard
+
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     password: abc1234
@@ -25,6 +29,22 @@ spring:
   devtools:
     livereload:
       enabled: true
+
+  # 이메일 설정
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: exazunyan1@gmail.com
+    password: wvwa hbuu hxup wduj
+    properties:
+      mail:
+        smtp:
+          auth: true
+          timeout: 5000
+          starttls:
+            enable: true
+
+
   jpa:
     database: mysql
     hibernate:
