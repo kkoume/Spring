@@ -25,7 +25,7 @@
             </div>
             <div class="card-body">
 
-                <form name="formWrite" th:action="@{/article/write}" method="post">
+                <form name="formWrite" th:action="@{/article/write}" method="post" enctype="multipart/form-data">
                     <input type="hidden" name="writer" th:value="${#authentication.principal.user.uid}">
                     <input type="hidden" name="cate" th:value="${cate}">
                     <div class="mb-3">
@@ -40,8 +40,11 @@
                         <label for="formFileMultiple" class="form-label">파일첨부</label>
                         <input class="form-control" type="file" name="files" id="formFileMultiple" multiple>
                     </div>
+
                 </form>
+
             </div>
+
         </div>
 
         <div class="text-end">

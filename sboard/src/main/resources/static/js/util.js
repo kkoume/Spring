@@ -1,6 +1,10 @@
-async function fetchData(url){
+// fetch GET용
+async function fetchGet(url){
+
+    console.log("fetchData1...1");
 
     try{
+        console.log("fetchData2...2");
         const response = await fetch(url);
         console.log("here1");
 
@@ -15,6 +19,33 @@ async function fetchData(url){
         return data;
 
     }catch (err) {
+        console.log(err)
+    }
+}
+
+// fetch POST용
+async function fetchPost(url, data){
+    console.log("fetchData2...1");
+
+    try{
+        console.log("fetchData2...2");
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {"Content-type":"application/json"},
+            body: JSON.stringify(data)
+        });
+        console.log("fetchData2...3");
+
+        if(!response.ok){
+            console.log("fetchData2...4");
+            throw new Error('response not ok');
+        }
+
+        const result = await response.json();
+        console.log("fetchData2...5 : " + result);
+
+        return result;
+    }catch(err){
         console.log(err)
     }
 }

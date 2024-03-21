@@ -20,6 +20,7 @@ server:
 spring:
   application:
     name: sboard
+    version: 0.0.1-SNAPSHOT
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -29,6 +30,8 @@ spring:
   devtools:
     livereload:
       enabled: true
+    restart:
+      enabled: false
 
   # 이메일 설정
   mail:
@@ -48,6 +51,7 @@ spring:
   jpa:
     database: mysql
     hibernate:
+      # 배포할 때는 none, 개발할 때는 update
       ddl-auto: update
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
@@ -55,3 +59,15 @@ spring:
       hibernate:
         format_sql: true
         show_sql: true
+
+# 파일 업로드 설정
+servlet:
+  multipart:
+      location: uploads/
+      max-file-size: 10MB
+
+
+# 파일 경로 설정
+file:
+    upload:
+        path: uploads/

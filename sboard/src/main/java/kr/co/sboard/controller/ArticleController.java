@@ -2,13 +2,19 @@ package kr.co.sboard.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
 import kr.co.sboard.dto.ArticleDTO;
+import kr.co.sboard.dto.PageRequestDTO;
+import kr.co.sboard.dto.PageResponseDTO;
 import kr.co.sboard.service.ArticleService;
+import kr.co.sboard.service.FileService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
+import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -17,12 +23,19 @@ public class ArticleController {
 
     private final ArticleService articleService;
 
+
     /*
         @ModelAttribute("cate")
          - modelAttribute("cate", cate)와 동일
     */
     @GetMapping("/article/list")
-    public String list(@ModelAttribute("cate") String cate){
+    public String list(Model model, PageRequestDTO pageRequestDTO){
+
+        PageResponseDTO pageResponseDTO = articleService.findByParentAndCate(pageRequestDTO);
+        log.info("pageResponseDTO : " + pageResponseDTO);
+
+        model.addAttribute(pageResponseDTO);
+
         return "/article/list";
     }
 
@@ -43,6 +56,20 @@ public class ArticleController {
         log.info(articleDTO.toString());
 
         articleService.insertArticle(articleDTO);
+
         return "redirect:/article/list";
     }
+
+    @GetMapping("/article/view")
+    public String view(int no, Model model){
+
+        ArticleDTO articleDTO = articleService.findById(no);
+        model.addAttribute(articleDTO);
+
+        return "/article/view";
+    }
+
+    // fileDownload 메서드 FileController로 이동
+
+
 }
