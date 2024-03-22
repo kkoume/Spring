@@ -2,6 +2,7 @@ package kr.co.sboard.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import kr.co.sboard.config.AppInfo;
 import kr.co.sboard.dto.TermsDTO;
 import kr.co.sboard.dto.UserDTO;
 import kr.co.sboard.service.UserService;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -24,8 +24,9 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/user/login")
-    public String login(@ModelAttribute("success") String success){
+    public String login(@ModelAttribute("success") String success, Model model){
         // 매개변수 success에 @ModelAttribute 선언으로 View 참조할 수 있음
+
         return "/user/login";
     }
 
@@ -48,7 +49,6 @@ public class UserController {
 
         String regip = req.getRemoteAddr();
         userDTO.setRegip(regip);
-
         log.info(userDTO.toString());
 
         userService.insertUser(userDTO);

@@ -39,6 +39,7 @@ public class ArticleService {
     public PageResponseDTO findByParentAndCate(PageRequestDTO pageRequestDTO){
 
         Pageable pageable = pageRequestDTO.getPageable("no");
+
         Page<Article> pageArticle = articleRepository.findByParentAndCate(0, pageRequestDTO.getCate(), pageable);
 
 
@@ -70,13 +71,16 @@ public class ArticleService {
             articleDTO = modelMapper.map(article, ArticleDTO.class);
             log.info("findById...4");
         }
+
         log.info("articleDTO : " + articleDTO.toString());
+
         return articleDTO;
     }
 
 
     public void insertArticle(ArticleDTO articleDTO){
 
+        // 파일 첨부 처리
         // 파일 첨부 처리
         List<FileDTO> files = fileService.fileUpload(articleDTO);
 

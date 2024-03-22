@@ -1,6 +1,7 @@
 package kr.co.sboard.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
+import kr.co.sboard.config.AppInfo;
 import kr.co.sboard.dto.ArticleDTO;
 import kr.co.sboard.dto.PageRequestDTO;
 import kr.co.sboard.dto.PageResponseDTO;
@@ -22,7 +23,6 @@ import java.util.List;
 public class ArticleController {
 
     private final ArticleService articleService;
-
 
     /*
         @ModelAttribute("cate")

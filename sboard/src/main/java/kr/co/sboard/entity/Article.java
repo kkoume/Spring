@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
+@Setter
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
@@ -37,12 +38,13 @@ public class Article {
     @Builder.Default
     private int hit = 0;
 
+
     private String regip;
 
     @CreationTimestamp
     private LocalDateTime rdate;
 
-    @OneToMany(mappedBy = "ano")
-    private List<File> fileList;    //files(x) DTO에서 겹침
+    @OneToMany(mappedBy = "ano") // mappedBy는 매핑 되는 엔티티(테이블)의 FK 컬럼 지정
+    private List<File> fileList;
 
 }

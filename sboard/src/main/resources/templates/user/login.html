@@ -1,9 +1,8 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="/layout/userLayout.html">
-
-
+      layout:decorate="~{/layout/userLayout}">
 <!--
+    - layout:decorate 레이아웃 파일 경로를 지정할 때 타임리프 ~{/경로(반드시 / 시작해야 됨)}를 사용해야 배포환경에서 Error resolving template~ 에러 나지 않음
     - javascript는 꼭 container 안에서 사용해야 됨
     - javascript에서 타임리프 문법을 사용하기 위해 th:inline="javascript" 속성 추가
 -->

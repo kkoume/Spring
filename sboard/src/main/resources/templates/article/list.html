@@ -1,63 +1,67 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout/defaultLayout}">
+      layout:decorate="~{/layout/defaultLayout}">
+<!--
+    layout:decorate 레이아웃 파일 경로를 지정할 때 타임리프 ~{/경로(반드시 / 시작해야 됨)}를 사용해야 배포환경에서 Error resolving template~ 에러 나지 않음
+-->
+<div class="container-fluid px-4" layout:fragment="content">
+    <h3 class="mt-4 mb-4">게시판 목록</h3>
 
-    <div class="container-fluid px-4" layout:fragment="content">
-        <h3 class="mt-4 mb-4">게시판 목록</h3>
+    <!-- 내용 시작 -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            OOO 글목록
+        </div>
+        <div class="card-body">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>번호</th>
+                    <th>제목</th>
+                    <th>작성자</th>
+                    <th>조회수</th>
+                    <th>등록일</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="article, index:${pageResponseDTO.dtoList}">
+                    <td>[[${pageResponseDTO.startNo - index.index}]]</td>
+                    <td>
+                        <a th:href="@{/article/view(no=${article.no})}">[[${article.title}]]</a>
+                    </td>
+                    <td>dsafasdf</td>
+                    <td>[[${article.hit}]]</td>
+                    <td>[[${article.rdate}]]</td>
+                </tr>
+                </tbody>
+            </table>
 
-        <!-- 내용 시작 -->
-        <div class="card mb-4">
-            <div class="card-header">
-                <i class="fas fa-table me-1"></i>
-                OOO 글목록
-            </div>
-            <div class="card-body">
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th>번호</th>
-                            <th>제목</th>
-                            <th>작성자</th>
-                            <th>조회수</th>
-                            <th>등록일</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr th:each="article, index:${pageResponseDTO.dtoList}">
-                            <td>[[${pageResponseDTO.startNo - index.index}]]</td>
-                            <td>
-                                <a th:href="@{/article/view(no=${article.no})}">[[${article.title}]]</a>
-                            </td>
-                            <td>dsafasdf</td>
-                            <td>[[${article.hit}]]</td>
-                            <td>[[${article.rdate}]]</td>
-                        </tr>
-                    </tbody>
-                </table>
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
 
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination justify-content-center">
+                    <li th:if="${pageResponseDTO.prev}" class="page-item">
+                        <a class="page-link" th:href="@{/article/list(cate=${pageResponseDTO.cate}, pg=${pageResponseDTO.start - 1})}">&#60;</a>
+                    </li>
 
-                        <li th:if="${pageResponseDTO.prev}" class="page-item">
-                            <a class="page-link" th:href="@{/article/list(cate=${pageResponseDTO.cate}, pg=${pageResponseDTO.start - 1})}">&#60;</a>
-                        </li>
+                    <li th:each="num:${#numbers.sequence(pageResponseDTO.start, pageResponseDTO.end)}" class="page-item">
+                        <a class="page-link" th:href="@{/article/list(cate=${pageResponseDTO.cate}, pg=${num})}">[[${num}]]</a>
+                    </li>
 
-                        <li th:each="num:${#numbers.sequence(pageResponseDTO.start, pageResponseDTO.end)}" class="page-item">
-                            <a class="page-link" th:href="@{/article/list(cate=${pageResponseDTO.cate}, pg=${num})}">[[${num}]]</a>
-                        </li>
+                    <li th:if="${pageResponseDTO.next}" class="page-item">
+                        <a class="page-link" th:href="@{/article/list(cate=${pageResponseDTO.cate}, pg=${pageResponseDTO.end + 1})}">&#62;</a>
+                    </li>
 
-                        <li th:if="${pageResponseDTO.next}" class="page-item">
-                            <a class="page-link" th:href="@{/article/list(cate=${pageResponseDTO.cate}, pg=${pageResponseDTO.end + 1})}">&#62;</a>
-                        </li>
+                </ul>
+            </nav>
 
-                    </ul>
-                </nav>
-            </div>
         </div>
 
-        <div class="text-end mb-4">
-            <a th:href="@{/article/write(cate=${pageResponseDTO.cate})}" class="btn btn-primary">글쓰기</a>
-        </div>
-        <!-- 내용 끝 -->
     </div>
+
+    <div class="text-end mb-4">
+        <a th:href="@{/article/write(cate=${pageResponseDTO.cate})}" class="btn btn-primary">글쓰기</a>
+    </div>
+    <!-- 내용 끝 -->
+</div>
 </html>
