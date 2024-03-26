@@ -27,6 +27,7 @@ public class Article {
 
     @Builder.Default
     private int comment = 0;
+
     private String cate;
     private String title;
     private String content;
@@ -38,7 +39,6 @@ public class Article {
     @Builder.Default
     private int hit = 0;
 
-
     private String regip;
 
     @CreationTimestamp
@@ -46,5 +46,6 @@ public class Article {
 
     @OneToMany(mappedBy = "ano") // mappedBy는 매핑 되는 엔티티(테이블)의 FK 컬럼 지정
     private List<File> fileList;
+
 
 }

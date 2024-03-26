@@ -2,13 +2,13 @@ package kr.co.sboard.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-import kr.co.sboard.config.AppInfo;
 import kr.co.sboard.dto.TermsDTO;
 import kr.co.sboard.dto.UserDTO;
 import kr.co.sboard.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -24,8 +24,9 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/user/login")
-    public String login(@ModelAttribute("success") String success, Model model){
+    public String login(@ModelAttribute("success") String success){
         // 매개변수 success에 @ModelAttribute 선언으로 View 참조할 수 있음
+
 
         return "/user/login";
     }
@@ -49,6 +50,7 @@ public class UserController {
 
         String regip = req.getRemoteAddr();
         userDTO.setRegip(regip);
+
         log.info(userDTO.toString());
 
         userService.insertUser(userDTO);
@@ -62,6 +64,10 @@ public class UserController {
                                        @PathVariable("type")  String type,
                                        @PathVariable("value") String value){
 
+
+        log.info("type : " + type);
+        log.info("value : " + value);
+
         int count = userService.selectCountUser(type, value);
         log.info("count : " + count);
 
@@ -69,6 +75,10 @@ public class UserController {
         if(count == 0 && type.equals("email")){
             log.info("email : " + value);
             userService.sendEmailCode(session, value);
+        }else if (count == 1 && type.equals("email")){
+
+        }else{
+
         }
 
         // Json 생성
@@ -98,5 +108,25 @@ public class UserController {
 
             return ResponseEntity.ok().body(resultMap);
         }
+    }
+
+    @GetMapping("/user/findId")
+    public String findId(){
+        return "/user/findId";
+    }
+
+    @GetMapping("/user/findIdResult")
+    public String findIdResult(HttpSession session, Model model){
+        return "/user/findIdResult";
+    }
+
+    @GetMapping("/user/findPassword")
+    public String findPassword(){
+        return "/user/findPassword";
+    }
+
+    @GetMapping("/user/findPasswordChange")
+    public String findPasswordChange(){
+        return "/user/findPasswordChange";
     }
 }

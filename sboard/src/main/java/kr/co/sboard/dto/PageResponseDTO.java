@@ -13,6 +13,7 @@ public class PageResponseDTO {
 
     private List<ArticleDTO> dtoList;
     private String cate;
+
     private int pg;
     private int size;
     private int total;

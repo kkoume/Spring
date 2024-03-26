@@ -5,6 +5,8 @@ import kr.co.sboard.config.AppInfo;
 import kr.co.sboard.dto.ArticleDTO;
 import kr.co.sboard.dto.PageRequestDTO;
 import kr.co.sboard.dto.PageResponseDTO;
+import kr.co.sboard.entity.Config;
+import kr.co.sboard.repository.ConfigRepository;
 import kr.co.sboard.service.ArticleService;
 import kr.co.sboard.service.FileService;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -23,14 +26,13 @@ import java.util.List;
 public class ArticleController {
 
     private final ArticleService articleService;
-
+    private final ConfigRepository configRepository;
     /*
         @ModelAttribute("cate")
          - modelAttribute("cate", cate)와 동일
     */
     @GetMapping("/article/list")
-    public String list(Model model, PageRequestDTO pageRequestDTO){
-
+    public String list(Model model, String cate, PageRequestDTO pageRequestDTO){
         PageResponseDTO pageResponseDTO = articleService.findByParentAndCate(pageRequestDTO);
         log.info("pageResponseDTO : " + pageResponseDTO);
 
@@ -40,9 +42,22 @@ public class ArticleController {
     }
 
     @GetMapping("/article/write")
-    public String write(@ModelAttribute("cate") String cate){
+    public String write(Model model, String cate){
+
         return "/article/write";
     }
+
+
+
+    @GetMapping("/article/view")
+    public String view(Model model, String cate, int no){
+        ArticleDTO articleDTO = articleService.findById(no);
+
+        model.addAttribute(articleDTO);
+
+        return "/article/view";
+    }
+
 
     @PostMapping("/article/write")
     public String write(HttpServletRequest req, ArticleDTO articleDTO){
@@ -60,14 +75,6 @@ public class ArticleController {
         return "redirect:/article/list";
     }
 
-    @GetMapping("/article/view")
-    public String view(int no, Model model){
-
-        ArticleDTO articleDTO = articleService.findById(no);
-        model.addAttribute(articleDTO);
-
-        return "/article/view";
-    }
 
     // fileDownload 메서드 FileController로 이동
 

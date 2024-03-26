@@ -21,7 +21,6 @@ server:
 spring:
   application:
     name: sboard
-
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     password: Abcd@1234
@@ -38,7 +37,7 @@ spring:
     host: smtp.gmail.com
     port: 587
     username: exazunyan1@gmail.com
-    password: wvwa hbuu hxup wduj
+    password: sljhswjdmbsflvzx
     properties:
       mail:
         smtp:
@@ -61,6 +60,7 @@ spring:
 
   thymeleaf:
     prefix: classpath:/templates
+
 
 # 파일 업로드 설정
 servlet:

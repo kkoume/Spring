@@ -17,7 +17,13 @@
                     if(agree1.checked && agree2.checked){
                         return true;
                     }else{
-                        showModal('이용약관과 개인정보 취급방침은 필수 동의입니다.');
+                        //alertModal('이용약관과 개인정보 취급방침은 필수 동의입니다.');
+                        confirmModal("동의하시겠습니까?").then(result => {
+                            console.log('result : ' + result);
+                        });
+
+
+
                         return false;
                     }
                 }

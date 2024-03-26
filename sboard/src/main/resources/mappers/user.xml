@@ -19,6 +19,11 @@
         </where>
     </select>
 
+    <select id="selectUserForFindId" resultType="kr.co.sboard.dto.UserDTO">
+        select * from user where name=#{name} and email=#{email}
+    </select>
+
+
     <insert id="insertUser">
         insert into user set
                         uid=#{uid},

@@ -24,7 +24,7 @@
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid px-4">
                         <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy;조영흥 2024</div>
+                            <div class="text-muted">Copyright &copy;김철학 2024</div>
                             <div>
                                 <a href="#">[[${appInfo.name}]]-[[${appInfo.version}]]</a>
                             </div>
@@ -34,8 +34,8 @@
             </div>
         </div>
 
-        <!-- Modal -->
-        <div class="modal fade" id="resultModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <!-- 기본 Modal -->
+        <div class="modal fade" id="alertModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -45,6 +45,24 @@
                     <div class="modal-body">내용</div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 확인, 취소 버튼을 갖는 Modal -->
+        <div class="modal" id="confirmModal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Modal title</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="btnCancel" class="btn btn-secondary btnCancel" data-bs-dismiss="modal">취소</button>
+                        <button type="button" id="btnOk" class="btn btn-primary btnOk" data-bs-dismiss="modal">확인</button>
                     </div>
                 </div>
             </div>

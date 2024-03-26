@@ -5,8 +5,10 @@ import kr.co.sboard.dto.FileDTO;
 import kr.co.sboard.dto.PageRequestDTO;
 import kr.co.sboard.dto.PageResponseDTO;
 import kr.co.sboard.entity.Article;
+import kr.co.sboard.entity.Config;
 import kr.co.sboard.entity.File;
 import kr.co.sboard.repository.ArticleRepository;
+import kr.co.sboard.repository.ConfigRepository;
 import kr.co.sboard.repository.FileRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,19 +32,20 @@ import java.util.UUID;
 public class ArticleService {
 
     private final ArticleRepository articleRepository;
+    private final ConfigRepository configRepository;
     private final FileService fileService;
     private final FileRepository fileRepository;
-
-    // RootConfig Bean 생성/등록
     private final ModelMapper modelMapper;
 
     public PageResponseDTO findByParentAndCate(PageRequestDTO pageRequestDTO){
 
+        log.info("findByParentAndCate...1");
         Pageable pageable = pageRequestDTO.getPageable("no");
 
+        log.info("findByParentAndCate...2");
         Page<Article> pageArticle = articleRepository.findByParentAndCate(0, pageRequestDTO.getCate(), pageable);
 
-
+        log.info("findByParentAndCate...3 : " + pageArticle);
         List<ArticleDTO> dtoList = pageArticle.getContent().stream()
                 .map(entity -> modelMapper.map(entity, ArticleDTO.class))
                 .toList();
@@ -107,6 +110,6 @@ public class ArticleService {
         }
     }
 
-    // fileUpload 메서드 -> FileService 클래스로 이동
+
 
 }

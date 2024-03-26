@@ -49,6 +49,7 @@ async function fetchPost(url, jsonData){
 
     }catch (err) {
         console.log(err)
+        return null;
     }
 }
 
@@ -108,51 +109,28 @@ function alertModal(message){
 }
 
 function confirmModal(message){
+    return new Promise(function (resolve, reject){
+        const confirmModal = document.getElementById('confirmModal');
+        const btnOk = document.getElementById('btnOk');
+        const btnCancel = document.getElementById('btnCancel');
+        confirmModal.getElementsByClassName('modal-body')[0].innerText = message;
 
-    const modal = new bootstrap.Modal(document.getElementById('confirmModal'));
-    modal.getElementsByClassName('modal-body')[0].innerText = message;
-    modal.show(); // 모달 열기
+        const modal = new bootstrap.Modal(confirmModal);
+        modal.show(); // 모달 열기
 
-    // 결과값 반환
-    return new Promise(resolve => {
         // 확인 버튼 클릭 시
-        document.getElementById('btnOk').onclick = function() {
-            modal.hide(); // 모달 닫기
-            resolve(true); // 확인 결과값 반환
-        };
+        btnOk.addEventListener('click', function (){
+            resolve(true);
+        });
 
         // 취소 버튼 클릭 시
-        document.getElementById('btnCancel').onclick = function() {
-            modal.hide(); // 모달 닫기
-            resolve(false); // 취소 결과값 반환
-        };
+        btnCancel.addEventListener('click', function (){
+            resolve(false);
+        });
     });
-
-    /*
-    const modal = document.getElementById('confirmModal');
-    modal.getElementsByClassName('modal-body')[0].innerText = message;
-
-    let result = null;
-
-    modal.getElementsByClassName('btnCancel')[0].onclick = function (e){
-        e.preventDefault();
-        result = 'cancel';
-    }
-
-    modal.getElementsByClassName('btnOk')[0].onclick = function (e){
-        e.preventDefault();
-        result = 'ok';
-    }
-
-    const resultModal = new bootstrap.Modal(modal);
-    resultModal.show();
-
-    modal.addEventListener('hidden.bs.modal', function(e){
-        alert('hidden!')
-    });
-    */
 
 }
+
 
 function showInputValid(inputs){
     for(const input of inputs){

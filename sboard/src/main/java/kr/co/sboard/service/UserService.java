@@ -35,6 +35,10 @@ public class UserService {
         return userMapper.selectCountUser(type, value);
     }
 
+    public UserDTO selectUserForFindId(UserDTO userDTO){
+        return userMapper.selectUserForFindId(userDTO.getName(), userDTO.getEmail());
+    }
+
     public void insertUser(UserDTO userDTO){
 
         String encoded = passwordEncoder.encode(userDTO.getPass());
@@ -60,6 +64,8 @@ public class UserService {
         // 인증코드 생성 후 세션 저장
         int code = ThreadLocalRandom.current().nextInt(100000, 1000000);
         session.setAttribute("code", String.valueOf(code));
+
+        log.info("code : " + code);
 
         String title = "sboard 인증코드 입니다.";
         String content = "<h1>인증코드는 " + code + "입니다.</h1>";
