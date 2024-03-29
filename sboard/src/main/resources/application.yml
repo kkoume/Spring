@@ -58,19 +58,61 @@ spring:
         format_sql: true
         show_sql: true
 
+
+
+
+  # 파일 업로드 설정
+  servlet:
+    multipart:
+        location: uploads/
+        max-file-size: 10MB
+
   thymeleaf:
     prefix: classpath:/templates
 
 
-# 파일 업로드 설정
-servlet:
-  multipart:
-      location: uploads/
-      max-file-size: 10MB
+  security:
+    oauth2:
+      client:
+        provider:
+          kakao:
+            authorization-uri: https://kauth.kakao.com/oauth/authorize
+            user-name-attribute: id
+            token-uri: https://kauth.kakao.com/oauth/token
+            user-info-uri: https://kapi.kakao.com/v2/user/me
 
+          google:
+            authorization-uri: https://accounts.google.com/o/oauth2/v2/auth?prompt=consent
+
+        registration:
+          kakao:
+            client-name: kakao
+            authorization-grant-type: authorization_code
+
+            # 카카오 > 내 애플리케이션 > 카카오 로그인 > 등록한 Redirect URI 입력
+            redirect-uri: http://localhost:8080/oauthTest/login/oauth2/code/kakao
+
+            # 카카오 > 내 애플리케이션 > 요약정보 > REST API 키 입력
+            client-id: a156f6cf7ea2596b1c50134d417cca6a
+
+            # 카카오 > 내 애플리케이션 > 카카오 로그인 > 보안 > Client Secret 생성 후 입력
+            client-secret: zdnzclP3fWuzxAoegxRBWO6ctQZuZYhL
+
+            client-authentication-method: client_secret_post
+            scope:
+              - profile_nickname
+              - profile_image
+
+          google:
+            client-id: 436858591150-mnj6ig049hi4l8uodvj9tpeqq5d3qb6v.apps.googleusercontent.com
+            client-secret: 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
+            redirect-uri: http://localhost:8080/sboard/login/oauth2/code/google
+            scope:
+              - email
+              - profile
 
 
 # 파일 경로 설정
 file:
-    upload:
-        path: uploads/
+  upload:
+    path: uploads/

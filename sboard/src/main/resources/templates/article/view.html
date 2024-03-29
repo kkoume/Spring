@@ -7,35 +7,6 @@
         <script th:inline="javascript">
             window.onload = function (){
 
-                // 수정 버튼 클릭 시
-                function updateArticle() {
-                    // 수정할 글의 번호 가져오기
-                    const articleNo = document.getElementById('articleNo').value;
-                    // 수정 페이지로 리다이렉트
-                    window.location.href = `/article/modify?no=${articleNo}`;
-                }
-
-                // 삭제 버튼 클릭 시
-                async function deleteArticle(articleNo) {
-                    // 확인 모달 표시
-                    const confirmed = await confirmModal("정말로 삭제하시겠습니까?");
-                    if (confirmed) {
-                        // 삭제 요청을 서버로 전송
-                        try {
-                            const response = await fetch(`/article/delete/${articleNo}`, { method: 'POST' });
-                            if (!response.ok) {
-                                throw new Error('글 삭제에 실패했습니다.');
-                            }
-                            // 삭제 후 목록 페이지로 리다이렉트
-                            window.location.href = "/article/list";
-                        } catch (error) {
-                            console.error(error);
-                            alertModal('글 삭제 중 오류가 발생했습니다.');
-                        }
-                    }
-                }
-
-
                 // 파일 다운로드 카운트 동적처리
                 const fileLinks = document.getElementsByClassName('fileLink');
 
@@ -65,6 +36,7 @@
 
                                 // 댓글 번호
                                 const no = e.target.dataset.no;
+
                                 console.log('no : ' + no);
 
 
@@ -254,9 +226,7 @@
         </div>
 
         <div class="text-end">
-            <a th:href="@{/article/list?cate=free}" class="btn btn-primary" id="btnSubmit">목록</a>
-            <button type="button" class="btn btn-primary" onclick="updateArticle()">수정</button>
-            <button type="button" class="btn btn-danger" onclick="deleteArticle(${articleDTO.no})">삭제</button>
+            <a th:href="@{/article/list}" class="btn btn-primary" id="btnSubmit">목록</a>
         </div>
 
         <!-- 댓글목록 시작 -->

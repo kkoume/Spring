@@ -75,10 +75,6 @@ public class UserController {
         if(count == 0 && type.equals("email")){
             log.info("email : " + value);
             userService.sendEmailCode(session, value);
-        }else if (count == 1 && type.equals("email")){
-
-        }else{
-
         }
 
         // Json 생성
@@ -88,7 +84,8 @@ public class UserController {
         return ResponseEntity.ok().body(resultMap);
     }
 
-    // 이메일 인증 코드 검사
+
+    // 이메일 전송확인(findId, findPassword)
     @ResponseBody
     @GetMapping("/email/{code}")
     public ResponseEntity<?> checkEmail(HttpSession session, @PathVariable("code")  String code){
@@ -110,23 +107,81 @@ public class UserController {
         }
     }
 
+    // 이메일 인증 코드를 확인(findId) - 입력한 코드와 세션에 저장된 코드 비교, 일치여부 확인
+    @ResponseBody
+    @GetMapping("/user/findId/sendEmailCode/{email}")
+    public ResponseEntity<?> checkUserForFindId(HttpSession session,
+                                                @PathVariable("email")  String email){
+
+        //log.info("session : " + session);
+        log.info("email : " + email);
+
+        userService.checkUserForFindId(session, email);
+
+        // Json 생성
+        Map<String, Object> resultMap = new HashMap<>();
+        resultMap.put("result", true);
+
+        return ResponseEntity.ok().body(resultMap);
+    }
+
+
+    // 이메일 인증 코드를 확인(findPassword) - 입력한 코드와 세션에 저장된 코드 비교, 일치여부 확인
+    @ResponseBody
+    @GetMapping("/user/findPassword/sendEmailCode/{email}")
+    public ResponseEntity<?> checkUserForFindPw(HttpSession session,
+                                                      @PathVariable("email")  String email){
+
+        //log.info("session : " + session);
+        log.info("email : " + email);
+
+        userService.checkUserForFindPw(session, email);
+
+        // Json 생성
+        Map<String, Object> resultMap = new HashMap<>();
+        resultMap.put("result", true);
+
+        return ResponseEntity.ok().body(resultMap);
+    }
+
     @GetMapping("/user/findId")
     public String findId(){
         return "/user/findId";
     }
 
-    @GetMapping("/user/findIdResult")
-    public String findIdResult(HttpSession session, Model model){
+    @PostMapping("/user/findIdResult")
+    public String findIdResult(UserDTO userDTO, Model model){
+        UserDTO findUser = userService.selectUserForFindId(userDTO);
+        model.addAttribute("user", findUser);
         return "/user/findIdResult";
     }
 
+
+    // 비밀번호 찾기 페이지를 요청
     @GetMapping("/user/findPassword")
     public String findPassword(){
         return "/user/findPassword";
     }
 
-    @GetMapping("/user/findPasswordChange")
-    public String findPasswordChange(){
+    //비밀번호 찾기 결과를 처리(비밀번호 변경화면)
+    @PostMapping("/user/findPasswordChange")
+    public String findPasswordChange(UserDTO userDTO, Model model){
+        log.info("userDTO : " + userDTO);
+        UserDTO findPass = userService.selectUserForFindPw(userDTO);
+        log.info("findPass : " + findPass);
+        model.addAttribute("user", findPass);
         return "/user/findPasswordChange";
     }
+
+
+    @PostMapping("/user/updatePassword")
+    public String updatePassword(UserDTO userDTO, Model model){
+        log.info("userDTO...1 : " + userDTO);
+        userService.updatePassword(userDTO);
+        log.info("userDTO...2 : " + userDTO);
+        //addAttribute("user", updatePass);
+        return "redirect:/user/login";
+    }
+
+
 }

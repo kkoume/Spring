@@ -33,7 +33,18 @@ public class ArticleController {
     */
     @GetMapping("/article/list")
     public String list(Model model, String cate, PageRequestDTO pageRequestDTO){
-        PageResponseDTO pageResponseDTO = articleService.findByParentAndCate(pageRequestDTO);
+
+        log.info("pageRequestDTO : " + pageRequestDTO);
+        PageResponseDTO pageResponseDTO = null;
+
+        if(pageRequestDTO.getKeyword() == null) {
+            // 일반 글 목록 조회
+            pageResponseDTO = articleService.selectArticles(pageRequestDTO);
+        }else {
+            // 검색 글 목록 조회
+            pageResponseDTO = articleService.searchArticles(pageRequestDTO);
+        }
+
         log.info("pageResponseDTO : " + pageResponseDTO);
 
         model.addAttribute(pageResponseDTO);
@@ -42,7 +53,13 @@ public class ArticleController {
     }
 
     @GetMapping("/article/write")
-    public String write(Model model, String cate){
+    public String write(Model model, String cate, PageRequestDTO pageRequestDTO){
+
+        PageResponseDTO pageResponseDTO = PageResponseDTO.builder()
+                .pageRequestDTO(pageRequestDTO)
+                .build();
+
+        model.addAttribute(pageResponseDTO);
 
         return "/article/write";
     }
@@ -65,6 +82,8 @@ public class ArticleController {
             글작성을 테스트할 때는 로그인해야하기 때문에
             SecurityConfig 인가 설정 수정할 것
         */
+
+        log.info("articleDTO : " + articleDTO);
         String regip = req.getRemoteAddr();
         articleDTO.setRegip(regip);
 
@@ -72,8 +91,9 @@ public class ArticleController {
 
         articleService.insertArticle(articleDTO);
 
-        return "redirect:/article/list";
+        return "redirect:/article/list?cate="+articleDTO.getCate();
     }
+
 
 
     // fileDownload 메서드 FileController로 이동

@@ -4,7 +4,7 @@
 
 <!--
     날짜 : 2024/03/25
-    이름 : 김광은
+    이름 : 조영흥
     내용 : 아이디 찾기 기능 구현하기
 
     - http://localhost:8080/sboard/user/findId
@@ -50,11 +50,8 @@
                 const divEmailCode = document.getElementById('divEmailCode');
 
                 btnCheckEmail.onclick = function(){
-                    const type      = this.dataset.type;
                     const value     = inputEmails[0].value;
                     const spinner   = this.getElementsByClassName('spinner')[0];
-
-
 
                     // 유효성 검사
                     if(!value.match(reEmail)){
@@ -72,14 +69,18 @@
                         spinner.classList.add('d-none');
                         divEmailCode.classList.remove('d-none');
 
-                        // fetchGet 함수에 type 값을 전달하여 서버에 요청
-                        console.log("type : " + type);
-                        console.log("value : " + value);
-
-                        const data = await fetchGet(`/sboard/user/${type}/${value}`, type);
+                        const data = await fetchGet(`/sboard/user/findId/sendEmailCode/${value}`);
                         console.log('data : ' + data.result);
 
-                        // 중복체크 기능을 삭제했으므로 여기에 아무 코드도 작성하지 않음
+                        if (data.result) {
+                            showInputValid(inputEmails);
+                            showResultValid(resultEmail, '인증코드가 발송 되었습니다.');
+                            isEmailOk = true;
+                        } else {
+                            showInputInvalid(inputEmails);
+                            showResultInvalid(resultEmail, '인증코드 발송에 실패했습니다.');
+                            isEmailOk = false;
+                        }
                     }, 1000);
                 }
 
@@ -87,18 +88,18 @@
                 const inputEmailCodes = document.getElementsByClassName('inputEmailCode');
                 const btnCheckEmailCode = document.getElementById('btnCheckEmailCode');
 
-                btnCheckEmailCode.onclick = async function (){
+                btnCheckEmailCode.onclick = async function () {
 
                     const value = inputEmailCodes[0].value;
 
                     const data = await fetchGet(`/sboard/email/${value}`);
 
-                    if(!data.result){
+                    if (!data.result) {
                         showInputInvalid(inputEmails);
                         showInputInvalid(inputEmailCodes);
                         showResultInvalid(resultEmail, '인증코드가 일치하지 않습니다.');
                         isEmailOk = false;
-                    }else{
+                    } else {
                         showInputValid(inputEmails);
                         showInputValid(inputEmailCodes);
                         showResultValid(resultEmail, '이메일이 인증되었습니다.');
@@ -107,20 +108,24 @@
                 }
 
                 // 최종 유효성 검사 확인
-                document.registerForm.onsubmit = function (){
+                const btnNext = document.getElementById('btnNext');
+
+                btnNext.onclick = function (e){
+                    e.preventDefault();
 
                     if(!isNameOk){
-                        showModal('이름이 유효하지 않습니다.');
+                        alertModal('이름이 유효하지 않습니다.');
                         return false;
                     }
 
                     if(!isEmailOk){
-                        showModal('이메일이 유효하지 않습니다.');
+                        alertModal('이메일이 유효하지 않습니다.');
                         return false;
                     }
 
                     // 폼 전송
-                    return true;
+                    document.formFindId.submit();
+
                 }
             }
         </script>
@@ -129,7 +134,7 @@
                 <div class="card shadow-lg border-0 rounded-lg mt-5">
                     <div class="card-header"><h3 class="text-center font-weight-light my-4">아이디 찾기</h3></div>
                     <div class="card-body">
-                        <form name="formFindId" method="post">
+                        <form name="formFindId" method="post" th:action="@{/user/findIdResult}">
                             <div class="row mb-3">
                                 <div class="col-md-7">
                                     <div class="form-floating mb-3 mb-md-0">

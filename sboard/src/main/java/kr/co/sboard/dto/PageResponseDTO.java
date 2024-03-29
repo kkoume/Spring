@@ -13,6 +13,8 @@ public class PageResponseDTO {
 
     private List<ArticleDTO> dtoList;
     private String cate;
+    private String type;
+    private String keyword;
 
     private int pg;
     private int size;
@@ -24,6 +26,8 @@ public class PageResponseDTO {
     @Builder
     public PageResponseDTO(PageRequestDTO pageRequestDTO, List<ArticleDTO> dtoList, int total){
         this.cate = pageRequestDTO.getCate();
+        this.type = pageRequestDTO.getType();
+        this.keyword = pageRequestDTO.getKeyword();
         this.pg = pageRequestDTO.getPg();
         this.size = pageRequestDTO.getSize();
         this.total = total;
@@ -38,6 +42,5 @@ public class PageResponseDTO {
         this.prev = this.start > 1;
         this.next = total > this.end * this.size;
     }
-
 
 }

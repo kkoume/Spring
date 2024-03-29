@@ -23,6 +23,14 @@
         select * from user where name=#{name} and email=#{email}
     </select>
 
+    <select id="selectUserForFindPw" resultType="kr.co.sboard.dto.UserDTO">
+        select * from user where uid=#{uid} and email=#{email}
+    </select>
+
+    <update id="updatePassword">
+        update user set pass=#{pass} where uid=#{uid}
+    </update>
+
 
     <insert id="insertUser">
         insert into user set
@@ -38,5 +46,13 @@
                         regip=#{regip},
                         regDate=NOW()
     </insert>
+
+    <!-- 회원 탈퇴 정보 업데이트 -->
+    <update id="updateUserWithdrawal">
+        UPDATE user
+        SET leaveDate = #{leaveDate}
+        WHERE uid = #{uid}
+    </update>
+
 
 </mapper>
