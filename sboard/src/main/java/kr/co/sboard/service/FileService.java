@@ -1,10 +1,13 @@
 package kr.co.sboard.service;
 
 import jakarta.persistence.EntityManager;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
 import kr.co.sboard.dto.ArticleDTO;
 import kr.co.sboard.dto.FileDTO;
 import kr.co.sboard.entity.Article;
+import kr.co.sboard.repository.ArticleRepository;
 import kr.co.sboard.repository.FileRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,6 +35,7 @@ import java.util.*;
 public class FileService {
 
     private final FileRepository fileRepository;
+    private final ArticleRepository articleRepository;
 
     @Value("${file.upload.path}")
     private String fileUploadPath;
@@ -44,7 +48,7 @@ public class FileService {
         // 파일 정보 리턴을 위한 리스트
         List<FileDTO> files = new ArrayList<>();
 
-        log.info("fileUpload...1");
+        log.info("fileUploadPath..1 : " + path);
 
         // 첨부한 파일 갯수만큼 반복 처리
         for(MultipartFile mf : articleDTO.getFiles()){
@@ -58,10 +62,10 @@ public class FileService {
 
                 log.info("fileUpload...4 : " + oName);
 
-                String ext = oName.substring(oName.lastIndexOf("."));
+                String ext = oName.substring(oName.lastIndexOf(".")); //확장자
                 String sName = UUID.randomUUID().toString() + ext;
 
-                log.info("oName : " + oName);
+                log.info("sName..5 : "+sName);
 
                 try {
                     // 저장
@@ -72,6 +76,8 @@ public class FileService {
                             .oName(oName)
                             .sName(sName)
                             .build();
+
+                    log.info("uploadFile..6 : " + fileDTO);
 
                     // 리스트 저장
                     files.add(fileDTO);
@@ -84,6 +90,61 @@ public class FileService {
 
         // 저장한 파일 정보 리스트 반환
         return files;
+    }
+
+    public Integer deleteFile(HttpServletRequest req, int fno){
+
+        //파일 조회
+        Optional<kr.co.sboard.entity.File> optFile = fileRepository.findById(fno);
+        log.info("fileDelete...1" + optFile);
+
+        if (optFile.isPresent()){
+
+            kr.co.sboard.entity.File file = optFile.get();
+            int ano = file.getAno(); // 파일과 연관된 게시글 번호를 가져옴
+
+            log.info("fileDelete...2");
+            fileRepository.deleteById(fno);
+
+            // 업로드 디렉토리 파일 삭제
+            ServletContext ctx = req.getServletContext();
+            String uploadPath = ctx.getRealPath("/uploads");
+
+            // 파일 객체 생성
+            java.io.File fileObj = new java.io.File(uploadPath + java.io.File.separator + file.getSName());
+
+            // 파일 삭제
+            if(fileObj.exists()) {
+                fileObj.delete();
+            }
+
+            Optional<Article> optArticle = articleRepository.findById(ano);
+            if(optArticle.isPresent()){
+                log.info("fileDelete...4" + optArticle.toString());
+                return optArticle.get().getNo();
+                //반환된 ano 값
+            }else {
+                log.info("fileDelete...5");
+                return null;
+            }
+
+        }else {
+            log.info("fileDelete...6");
+            return null;
+        }
+
+    }
+
+    public int deleteFiles(HttpServletRequest req, int ano){
+        fileRepository.deleteById(ano);
+
+        // 업로드 디렉토리 파일 삭제
+        ServletContext ctx = req.getServletContext();
+        String uploadPath = ctx.getRealPath("/uploads");
+
+
+        return ano;
+
     }
 
 

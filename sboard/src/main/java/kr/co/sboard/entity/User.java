@@ -1,8 +1,6 @@
 package kr.co.sboard.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import kr.co.sboard.dto.UserDTO;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -14,6 +12,7 @@ import java.util.Collection;
 import java.util.Map;
 
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
@@ -35,6 +34,7 @@ public class User {
     private String addr2;
     private String regip;
     private String sms;
+    // API 위해 추가
     private String provider;
 
     @CreationTimestamp

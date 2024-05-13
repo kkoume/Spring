@@ -6,14 +6,22 @@ import jakarta.mail.internet.MimeMessage;
 import jakarta.servlet.http.HttpSession;
 import kr.co.sboard.dto.TermsDTO;
 import kr.co.sboard.dto.UserDTO;
+import kr.co.sboard.entity.User;
 import kr.co.sboard.mapper.UserMapper;
+import kr.co.sboard.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
 
 @Slf4j
@@ -22,7 +30,9 @@ import java.util.concurrent.ThreadLocalRandom;
 public class UserService {
 
     private final UserMapper userMapper;
+    private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final ModelMapper modelMapper;
 
     // JavaMailSender 주입
     private final JavaMailSender javaMailSender;
@@ -36,27 +46,17 @@ public class UserService {
     }
 
 
-    public UserDTO selectUserForFindId(UserDTO userDTO){
-        return userMapper.selectUserForFindId(userDTO.getName(), userDTO.getEmail());
-    }
-
-    // 비밀번호 찾기를 위해 사용자 정보를 조회하는 메서드
-    public UserDTO selectUserForFindPw(UserDTO userDTO){
-        return userMapper.selectUserForFindPw(userDTO.getUid(), userDTO.getEmail());
-    }
-
-
-    public void updatePassword(UserDTO userDTO){
-        userMapper.updatePassword(userDTO.getUid(), userDTO.getPass());
-    }
-
-
     public void insertUser(UserDTO userDTO){
 
         String encoded = passwordEncoder.encode(userDTO.getPass());
         userDTO.setPass(encoded);
 
         userMapper.insertUser(userDTO);
+    }
+
+
+    public UserDTO selectUserForFindId(UserDTO userDTO){
+        return userMapper.selectUserForFindId(userDTO.getName(), userDTO.getEmail());
     }
 
     /*
@@ -96,7 +96,8 @@ public class UserService {
 
     }
 
-    public String checkUserForFindId(HttpSession session, String email){
+    // 인증코드를 통한 이메일 검사 id
+    public UserDTO findUserByEmail(HttpSession session, String email){
 
         log.info("sender : " + sender);
 
@@ -124,11 +125,11 @@ public class UserService {
             log.error("sendEmailConde : " + e.getMessage());
         }
 
-        return userMapper.checkUserForFindId(email);
+        return userMapper.selectUserForFindId(null, email);
 
     }
 
-    // 이메일을 통해 인증 코드를 전송하는 메서드(findPassword)
+    // 인증코드를 통한 이메일 검사 pass
     public String checkUserForFindPw(HttpSession session, String email){
 
         log.info("sender : " + sender);
@@ -162,4 +163,135 @@ public class UserService {
     }
 
 
+    public UserDTO findPassword(String uid, String email){
+        Optional<User> optUser = userRepository.findUserByUidAndEmail(uid, email);
+        UserDTO userDTO = null;
+
+        log.info("findpass..." + optUser);
+
+        if (optUser.isPresent()){
+            User user = optUser.get();
+            userDTO = modelMapper.map(user, UserDTO.class);
+
+
+            return userDTO;
+        }else {
+            return null; // 또는 예외를 던지거나 다른 방식으로 처리
+        }
+    }
+
+
+    public ResponseEntity<?> updateUserPass(UserDTO userDTO){
+        Optional<User> optUser = userRepository.findById(userDTO.getUid());
+
+        if (optUser.isPresent()){
+            User user = optUser.get();
+
+            String encoded = passwordEncoder.encode(userDTO.getPass());
+            log.info(encoded);
+            user.setPass(encoded);
+
+
+            log.info("updateUser....."+ user);
+
+            User updateUser = userRepository.save(user);
+
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(updateUser);
+        }else {
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body("not found");
+        }
+    }
+
+    public ResponseEntity<?> updateUserZip(UserDTO userDTO){
+        Optional<User> optUser = userRepository.findById(userDTO.getUid());
+
+        if (optUser.isPresent()){
+
+            userMapper.updateUserZip(userDTO);
+            Map<String, Object> jsonResult = new HashMap<>();
+            jsonResult.put("result","success");
+
+            return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(jsonResult);
+        }else {
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body("not found");
+        }
+    }
+
+    public void deleteUser(String uid){
+        //삭제 전 조회
+        Optional<User> optUser = userRepository.findById(uid);
+
+        log.info("optUser.... : " + optUser);
+
+        if(optUser.isPresent()){
+            log.info("deleteUser.....1");
+
+            // 유저 id 와 leaveDate 만 남기고 나머지 null 처리
+            userMapper.deleteUser(uid);
+
+        }else {
+            log.info("deleteUser.....2");
+
+        }
+    }
+
+    // setting
+    public UserDTO findUserByUid(String uid){
+        Optional<User> optUser = userRepository.findById(uid);
+        UserDTO userDTO = null;
+        log.info("findUserByUid.....1 :" + optUser);
+
+        if(optUser.isPresent()){
+            User user = optUser.get();
+            userDTO = modelMapper.map(user, UserDTO.class);
+            log.info("findUserByUid......2 :" + userDTO.toString());
+
+            return userDTO;
+        }else{
+            return null; // 또는 예외를 던지거나 다른 방식으로 처리
+        }
+    }
+
+
+    public ResponseEntity<?> updateUser(String type, String value, String uid){
+        userMapper.updateUserBy(type, value, uid);
+
+        // 업데이트된 사용자 정보 조회
+        Optional<User> updatedUserOptional = userRepository.findById(uid);
+
+        // 업데이트된 사용자 정보가 존재하는지 확인
+        if (updatedUserOptional.isPresent()) {
+            // 업데이트된 사용자 정보를 ResponseEntity에 담아 반환
+            User updatedUser = updatedUserOptional.get();
+            return ResponseEntity.ok(updatedUser);
+        } else {
+            // 업데이트된 사용자 정보가 존재하지 않을 경우 404 에러 반환
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    public UserDTO selectUser(String uid) {
+        Optional<User> optUser = userRepository.findById(uid);
+        log.info("findById ...1 " + optUser);
+
+        UserDTO userDTO = null;
+        if (optUser.isPresent()) {
+            User user = optUser.get();
+            log.info("findById ...2 " + user.toString());
+
+            userDTO = modelMapper.map(user, UserDTO.class);
+            log.info("findById ...3 " + userDTO);
+        }
+
+        return userDTO;
+
+    }
 }

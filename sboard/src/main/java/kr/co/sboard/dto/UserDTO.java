@@ -1,7 +1,10 @@
 package kr.co.sboard.dto;
 
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import kr.co.sboard.entity.User;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 
@@ -25,9 +28,8 @@ public class UserDTO {
     private String addr2;
     private String regip;
     private String sms;
-    private String regDate;
-    private String leaveDate;
-
+    private LocalDateTime regDate;
+    private LocalDateTime leaveDate;
 
 
 }

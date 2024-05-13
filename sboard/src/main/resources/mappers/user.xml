@@ -38,21 +38,58 @@
                         pass=#{pass},
                         name=#{name},
                         nick=#{nick},
-                        email=#{email},
                         hp=#{hp},
+                        email=#{email},
                         zip=#{zip},
                         addr1=#{addr1},
                         addr2=#{addr2},
                         regip=#{regip},
+                        sms=#{sms},
                         regDate=NOW()
     </insert>
 
-    <!-- 회원 탈퇴 정보 업데이트 -->
-    <update id="updateUserWithdrawal">
-        UPDATE user
-        SET leaveDate = #{leaveDate}
-        WHERE uid = #{uid}
+    <update id="deleteUser">
+        UPDATE `user` SET
+                        pass = NULL,
+                        name = NULL,
+                        email = NULL,
+                        hp = NULL,
+                        role = NULL,
+                        zip = NULL,
+                        addr1 = NULL,
+                        addr2 = NULL,
+                        regip = NULL,
+                        sms = NULL,
+                        regDate = NULL,
+                        leaveDate=NOW()
+                        WHERE uid = #{uid}
     </update>
 
+    <update id="updateUserBy" >
+        update `user`
+                <trim prefix="set" suffixOverrides=",">
+                    <if test="type == 'name'">
+                        name=#{value},
+                    </if>
+                    <if test="type == 'nick'">
+                        nick=#{value},
+                    </if>
+                    <if test="type == 'hp'">
+                        hp=#{value},
+                    </if>
+                    <if test="type == 'email'">
+                        email=#{value},
+                    </if>
+                </trim>
+                where uid = #{uid}
+    </update>
+
+    <update id="updateUserZip">
+        update `user` set
+                    zip=#{zip},
+                    addr1=#{addr1},
+                    addr2=#{addr2}
+                    where uid = #{uid}
+    </update>
 
 </mapper>

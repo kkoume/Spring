@@ -116,7 +116,7 @@ public class UserController {
         //log.info("session : " + session);
         log.info("email : " + email);
 
-        userService.checkUserForFindId(session, email);
+        userService.findUserByEmail(session, email);
 
         // Json 생성
         Map<String, Object> resultMap = new HashMap<>();
@@ -125,12 +125,11 @@ public class UserController {
         return ResponseEntity.ok().body(resultMap);
     }
 
-
     // 이메일 인증 코드를 확인(findPassword) - 입력한 코드와 세션에 저장된 코드 비교, 일치여부 확인
     @ResponseBody
     @GetMapping("/user/findPassword/sendEmailCode/{email}")
     public ResponseEntity<?> checkUserForFindPw(HttpSession session,
-                                                      @PathVariable("email")  String email){
+                                                @PathVariable("email")  String email){
 
         //log.info("session : " + session);
         log.info("email : " + email);
@@ -143,6 +142,7 @@ public class UserController {
 
         return ResponseEntity.ok().body(resultMap);
     }
+
 
     @GetMapping("/user/findId")
     public String findId(){
@@ -164,24 +164,73 @@ public class UserController {
     }
 
     //비밀번호 찾기 결과를 처리(비밀번호 변경화면)
+    @PostMapping("/user/findPassword")
+    public ResponseEntity<UserDTO> findPassword(@RequestBody UserDTO userDTO){
+
+        String uid = userDTO.getUid();
+        String email = userDTO.getEmail();
+        log.info("findPass.....uid: " + uid);
+        log.info("findPass.....email: " + email);
+        UserDTO foundUserDTO = userService.findPassword(uid, email);
+        log.info("findPass...... :" + foundUserDTO);
+
+        if(foundUserDTO != null){
+            return ResponseEntity.ok(foundUserDTO);
+            // 사용자를 찾은 경우 200 OK 응답으로 사용자 정보 반환
+        }else{
+            return ResponseEntity.notFound().build();
+            // 사용자를 찾지 못한 경우 404 Not Found 응답 반환
+        }
+    }
+
+
+    //
     @PostMapping("/user/findPasswordChange")
-    public String findPasswordChange(UserDTO userDTO, Model model){
-        log.info("userDTO : " + userDTO);
-        UserDTO findPass = userService.selectUserForFindPw(userDTO);
-        log.info("findPass : " + findPass);
-        model.addAttribute("user", findPass);
+    public String findPasswordChange(String uid, String email, Model model){
+        UserDTO userDTO = userService.findPassword(uid, email);
+        log.info("result... : " + userDTO.toString());
+        model.addAttribute("userDTO", userDTO);
+        log.info(userDTO.toString());
+
         return "/user/findPasswordChange";
     }
 
 
-    @PostMapping("/user/updatePassword")
-    public String updatePassword(UserDTO userDTO, Model model){
-        log.info("userDTO...1 : " + userDTO);
-        userService.updatePassword(userDTO);
-        log.info("userDTO...2 : " + userDTO);
-        //addAttribute("user", updatePass);
-        return "redirect:/user/login";
+    @PutMapping("/updatePass")
+    public ResponseEntity<?> putPass(@RequestBody UserDTO userDTO, HttpServletRequest req){
+        return userService.updateUserPass(userDTO);
     }
 
+    @PutMapping("/updateZip")
+    public ResponseEntity<?> putZip(@RequestBody UserDTO userDTO, HttpServletRequest req){
+        log.info(userDTO.toString()+"@@@@");
+        return userService.updateUserZip(userDTO);
+    }
 
+    @GetMapping("/my/setting")
+    public String mySetting(@RequestParam("uid") String uid, Model model){
+
+        UserDTO userDTO = userService.findUserByUid(uid);
+        log.info("mySetting......1111:"+userDTO.toString());
+
+        model.addAttribute("userDTO", userDTO);
+        log.info("mySetting......:"+userDTO.toString());
+
+        return "/my/setting";
+    }
+
+    @ResponseBody
+    @GetMapping("/my/setting/{type}/{value}/{uid}")
+    public ResponseEntity<?> updateUser(@PathVariable("type") String type,
+                                        @PathVariable("value") String value,
+                                        @PathVariable("uid") String uid) {
+        return userService.updateUser(type, value, uid);
+    }
+
+    @DeleteMapping("/user/{uid}")
+    public void deleteUser(@PathVariable("uid") String uid){
+
+        userService.deleteUser(uid);
+
+    }
 }

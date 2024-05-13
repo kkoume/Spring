@@ -108,6 +108,46 @@ function alertModal(message){
     resultModal.show();
 }
 
+function editModal(message){
+    const modal = document.getElementById('editModal');
+    modal.getElementsByClassName('modal-title')[0].innerText = message + '수정';
+    modal.getElementsByClassName('modal-body-comment')[0].innerText = message ;
+    const resultModal = new bootstrap.Modal(modal);
+    resultModal.show();
+}
+
+function closeEditModal(){
+    var modalElement = document.getElementById('editModal'); // 모달 요소 가져오기
+    var modal = bootstrap.Modal.getInstance(modalElement); // 모달 객체 가져오기
+    modal.hide();
+}
+
+function editMailModal(message){
+    const modal = document.getElementById('editMailModal');
+    modal.getElementsByClassName('modal-title')[0].innerText = message + '수정';
+    modal.getElementsByClassName('modal-body-comment')[0].innerText = message ;
+    const resultModal = new bootstrap.Modal(modal);
+    resultModal.show();
+}
+
+function closeEditMailModal(){
+    var modalElement = document.getElementById('editMailModal'); // 모달 요소 가져오기
+    var modal = bootstrap.Modal.getInstance(modalElement); // 모달 객체 가져오기
+    modal.hide();
+}
+
+function editAddrModal(){
+    const modal = document.getElementById('editAddrModal');
+    const resultModal = new bootstrap.Modal(modal);
+    resultModal.show();
+}
+
+function closeEditZipModal(){
+    var modalElement = document.getElementById('editAddrModal'); // 모달 요소 가져오기
+    var modal = bootstrap.Modal.getInstance(modalElement); // 모달 객체 가져오기
+    modal.hide();
+}
+
 function confirmModal(message){
     return new Promise(function (resolve, reject){
         const confirmModal = document.getElementById('confirmModal');
@@ -129,6 +169,12 @@ function confirmModal(message){
         });
     });
 
+}
+
+function closeconfirmModal(){
+    var modalElement = document.getElementById('confirmModal'); // 모달 요소 가져오기
+    var modal = bootstrap.Modal.getInstance(modalElement); // 모달 객체 가져오기
+    modal.hide();
 }
 
 
@@ -156,6 +202,16 @@ function showResultInvalid(result, message){
     result.classList.remove('valid-feedback');
     result.classList.add('invalid-feedback');
     result.innerText = message;
+}
+
+function hideResultInvalid() {
+    // 결과 메시지 요소를 찾습니다.
+    var resultElement = document.getElementById('resultComment');
+    // 결과 메시지가 존재한다면
+    if (resultElement) {
+        // 메시지를 숨깁니다.
+        resultElement.innerText = '';
+    }
 }
 
 function postcode() {
