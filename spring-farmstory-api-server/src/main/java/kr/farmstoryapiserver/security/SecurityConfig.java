@@ -50,6 +50,7 @@ public class SecurityConfig {
                         .requestMatchers("/manager/**").hasAnyRole("ADMIN", "MANAGER")
                         .requestMatchers("/staff/**").hasAnyRole("ADMIN", "MANAGER", "STAFF")
                         .requestMatchers("/article/**").hasRole("USER")
+                        .requestMatchers("/product/**").hasRole("USER")
                         .anyRequest().permitAll());
 
 
